@@ -1,0 +1,204 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+
+    <script src="script.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Cards with Search</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --bg: #f9fafb;
+      --text: #1f2937;
+      --card-bg: white;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 2rem auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-box input {
+      padding: 0.8rem 1rem;
+      width: 100%;
+      font-size: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--card-shadow);
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card img {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>User Directory</h1>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Type user name and press Enter...">
+    </div>
+    <div class="grid" id="userGrid">
+      <!-- Cards will be injected here -->
+    </div>
+  </div>
+
+  <script>
+   const users = [
+  {
+    "name": "Ava Thompson",
+    "pic": "https://randomuser.me/api/portraits/women/1.jpg",
+    "bio": "UX designer with a passion for minimalism and digital storytelling."
+  },
+  {
+    "name": "Liam Patel",
+    "pic": "https://randomuser.me/api/portraits/men/2.jpg",
+    "bio": "Full-stack developer who loves building scalable web apps and hiking on weekends."
+  },
+  {
+    "name": "Sophia Nguyen",
+    "pic": "https://randomuser.me/api/portraits/women/3.jpg",
+    "bio": "Marketing strategist focused on brand growth through data-driven content."
+  },
+  {
+    "name": "Noah Garcia",
+    "pic": "https://randomuser.me/api/portraits/men/4.jpg",
+    "bio": "AI researcher interested in human-centered machine learning applications."
+  },
+  {
+    "name": "Isabella Rossi",
+    "pic": "https://randomuser.me/api/portraits/women/5.jpg",
+    "bio": "Photographer capturing emotion through natural light and candid moments."
+  }
+];
+
+    const userGrid = document.getElementById("userGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderUsers(filter = "") {
+      userGrid.innerHTML = "";
+      const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      if (filteredUsers.length === 0) {
+        userGrid.innerHTML = "<p style='text-align:center;'>No user found.</p>";
+        return;
+      }
+
+      filteredUsers.forEach(user => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${user.pic}" alt="${user.name}" loading="lazy">
+          <h2>${user.name}</h2>
+          <p>${user.bio}</p>
+        `;
+        userGrid.appendChild(card);
+      });
+    }
+
+    renderUsers(); // Initial render
+
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        renderUsers(this.value);
+      }
+    });
+  </script>
+</body>
+</html>
