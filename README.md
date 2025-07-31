@@ -13,4 +13,4 @@ A responsive and user-friendly card-based user directory built using HTML, CSS, 
 
 1. Clone or download this repository.
    ```bash
-   git clone https://github.com/your-username/user-directory.git
+   git clone https://github.com/zymmy5507/User-Directory.git
